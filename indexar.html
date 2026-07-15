@@ -3,52 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menú Digital</title>
+<title>Menú Digital + Pedidos</title>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
-  body { background: #f5f5f5; padding: 16px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+  body { background: #f5f5f5; padding: 16px; padding-bottom: 160px; }
   .header { text-align: center; margin-bottom: 20px; }
-  .header h1 { color: #d35400; }
-  .admin-btn { position: fixed; bottom: 16px; right: 16px; background: #2c3e50; color: white; border: none; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-size: 14px; }
+  .header h1 { color: #d35400; font-size: 28px; }
+  .header p { color: #666; margin-top: 4px; }
+  
+  /* Botones flotantes */
+  .float-btn { position: fixed; bottom: 16px; right: 16px; border: none; padding: 14px 20px; border-radius: 50px; cursor: pointer; font-size: 14px; font-weight: 600; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .admin-btn { background: #2c3e50; color: white; }
+  .cart-btn { background: #27ae60; color: white; bottom: 70px; }
+  .cart-badge { background: #e74c3c; color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px; margin-left: 6px; }
   
   /* Vista cliente */
   .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
-  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
   .card img { width: 100%; height: 180px; object-fit: cover; }
-  .card-body { padding: 14px; }
+  .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
   .card h3 { color: #2c3e50; margin-bottom: 6px; }
-  .card p { color: #666; font-size: 14px; margin-bottom: 10px; }
-  .price { color: #d35400; font-weight: bold; font-size: 18px; }
+  .card p { color: #666; font-size: 14px; margin-bottom: 10px; flex: 1; }
+  .price { color: #d35400; font-weight: bold; font-size: 18px; margin-bottom: 10px; }
+  .add-btn { background: #d35400; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; }
+  .add-btn:hover { background: #e67e22; }
+  .qty-control { display: flex; align-items: center; justify-content: space-between; background: #f0f0f0; border-radius: 6px; padding: 4px; }
+  .qty-btn { background: #d35400; color: white; border: none; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: bold; }
+  .qty-num { font-weight: bold; min-width: 30px; text-align: center; }
+  
+  /* Modal carrito */
+  .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: flex-end; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: white; width: 100%; max-width: 500px; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 20px; overflow-y: auto; animation: slideUp 0.3s; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal h2 { color: #2c3e50; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+  .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; }
+  .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+  .cart-item-info { flex: 1; }
+  .cart-item-info strong { display: block; color: #2c3e50; }
+  .cart-item-info small { color: #666; }
+  .cart-item-qty { display: flex; align-items: center; gap: 8px; margin: 0 12px; }
+  .cart-item-qty button { background: #d35400; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+  .cart-item-price { font-weight: bold; color: #d35400; min-width: 60px; text-align: right; }
+  .cart-total { font-size: 20px; font-weight: bold; text-align: right; margin: 16px 0; color: #2c3e50; }
+  .cart-total span { color: #d35400; }
+  
+  .form-group { margin-bottom: 12px; }
+  .form-group label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 14px; color: #2c3e50; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+  
+  .whatsapp-btn { background: #25D366; color: white; border: none; padding: 14px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .whatsapp-btn:hover { background: #128C7E; }
+  .whatsapp-btn:disabled { background: #ccc; cursor: not-allowed; }
+  
+  .empty-cart { text-align: center; padding: 40px 20px; color: #666; }
+  .empty-cart-icon { font-size: 48px; margin-bottom: 12px; }
   
   /* Panel admin */
   .admin-panel { display: none; max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; }
   .admin-panel.active { display: block; }
-  .form-group { margin-bottom: 12px; }
-  .form-group label { display: block; margin-bottom: 4px; font-weight: 600; }
-  .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
-  .btn { background: #d35400; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-right: 8px; }
+  .btn { background: #d35400; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-right: 8px; margin-top: 8px; }
   .btn-secondary { background: #7f8c8d; }
   .btn-danger { background: #c0392b; }
-  .item-list { margin-top: 20px; }
   .item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
   .qr-section { text-align: center; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 12px; }
   #qrcode { display: inline-block; margin-top: 10px; }
   .hidden { display: none !important; }
+  .config-box { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>🍽️ Nuestro Menú</h1>
-  <p>Escanea el QR o navega aquí</p>
+  <p>Haz tu pedido y envíalo por WhatsApp</p>
 </div>
 
 <!-- VISTA CLIENTE -->
 <div id="clientView" class="menu-grid"></div>
 
-<!-- BOTÓN ADMIN -->
-<button class="admin-btn" onclick="toggleAdmin()">️ Admin</button>
+<!-- BOTONES FLOTANTES -->
+<button class="float-btn cart-btn" onclick="openCart()">
+  🛒 Ver pedido <span class="cart-badge" id="cartCount">0</span>
+</button>
+<button class="float-btn admin-btn" onclick="toggleAdmin()">️ Admin</button>
+
+<!-- MODAL CARRITO -->
+<div class="modal-overlay" id="cartModal">
+  <div class="modal">
+    <h2>
+      <span>🛒 Tu Pedido</span>
+      <button class="close-modal" onclick="closeCart()"></button>
+    </h2>
+    <div id="cartContent"></div>
+  </div>
+</div>
 
 <!-- PANEL ADMIN -->
 <div id="adminPanel" class="admin-panel">
@@ -62,6 +112,23 @@
   </div>
   
   <div id="adminContent" class="hidden">
+    <div class="config-box">
+      <strong> Configuración WhatsApp:</strong><br>
+      Ingresa el número donde recibirás los pedidos (con código de país, sin + ni espacios).<br>
+      Ejemplo: <code>521234567890</code>
+    </div>
+    <div class="form-group">
+      <label>Número de WhatsApp del negocio:</label>
+      <input type="text" id="whatsappNumber" placeholder="521234567890">
+    </div>
+    <div class="form-group">
+      <label>Nombre del negocio:</label>
+      <input type="text" id="businessName" placeholder="Mi Restaurante">
+    </div>
+    <button class="btn" onclick="saveConfig()">💾 Guardar configuración</button>
+    
+    <hr style="margin: 20px 0;">
+    
     <h3>Agregar producto</h3>
     <div class="form-group">
       <label>Nombre:</label>
@@ -76,14 +143,14 @@
       <input type="number" id="prodPrice" step="0.01">
     </div>
     <div class="form-group">
-      <label>URL de imagen (o déjalo vacío para usar la de ejemplo):</label>
-      <input type="text" id="prodImg" placeholder="https://...">
+      <label>URL de imagen:</label>
+      <input type="text" id="prodImg" placeholder="https://... (opcional)">
     </div>
     <button class="btn" onclick="addProduct()">➕ Agregar</button>
     <button class="btn btn-secondary" onclick="logout()">Salir</button>
     
     <div class="item-list">
-      <h3>Productos actuales</h3>
+      <h3 style="margin-top:20px;">Productos actuales</h3>
       <div id="itemList"></div>
     </div>
     
@@ -97,12 +164,13 @@
 </div>
 
 <script>
-const ADMIN_PASSWORD = "menu2026"; // Cámbiala
+const ADMIN_PASSWORD = "menu2026";
 const DEFAULT_IMG = "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500";
 
 let products = JSON.parse(localStorage.getItem("menu_products") || "[]");
+let cart = JSON.parse(localStorage.getItem("menu_cart") || "[]");
+let config = JSON.parse(localStorage.getItem("menu_config") || '{"whatsapp":"","businessName":"Mi Restaurante"}');
 
-// Si no hay productos, cargar ejemplos
 if (products.length === 0) {
   products = [
     { id: 1, name: "Hamburguesa Clásica", desc: "Carne 200g, queso, lechuga, tomate", price: 5.50, img: DEFAULT_IMG },
@@ -112,22 +180,173 @@ if (products.length === 0) {
   saveProducts();
 }
 
-function saveProducts() {
-  localStorage.setItem("menu_products", JSON.stringify(products));
+function saveProducts() { localStorage.setItem("menu_products", JSON.stringify(products)); }
+function saveCart() { localStorage.setItem("menu_cart", JSON.stringify(cart)); updateCartCount(); }
+function saveConfig() {
+  config.whatsapp = document.getElementById("whatsappNumber").value.trim();
+  config.businessName = document.getElementById("businessName").value.trim() || "Mi Restaurante";
+  localStorage.setItem("menu_config", JSON.stringify(config));
+  alert("✅ Configuración guardada");
 }
 
 function renderMenu() {
   const grid = document.getElementById("clientView");
-  grid.innerHTML = products.map(p => `
-    <div class="card">
-      <img src="${p.img}" alt="${p.name}" onerror="this.src='${DEFAULT_IMG}'">
-      <div class="card-body">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <div class="price">$${parseFloat(p.price).toFixed(2)}</div>
+  grid.innerHTML = products.map(p => {
+    const inCart = cart.find(c => c.id === p.id);
+    const qty = inCart ? inCart.qty : 0;
+    return `
+      <div class="card">
+        <img src="${p.img}" alt="${p.name}" onerror="this.src='${DEFAULT_IMG}'">
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="price">$${parseFloat(p.price).toFixed(2)}</div>
+          ${qty === 0 
+            ? `<button class="add-btn" onclick="addToCart(${p.id})">➕ Agregar</button>`
+            : `<div class="qty-control">
+                 <button class="qty-btn" onclick="changeQty(${p.id}, -1)">−</button>
+                 <span class="qty-num">${qty}</span>
+                 <button class="qty-btn" onclick="changeQty(${p.id}, 1)">+</button>
+               </div>`
+          }
+        </div>
       </div>
+    `;
+  }).join("");
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+  saveCart();
+  renderMenu();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    cart = cart.filter(c => c.id !== id);
+  }
+  saveCart();
+  renderMenu();
+  renderCart();
+}
+
+function updateCartCount() {
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById("cartCount").textContent = count;
+}
+
+function openCart() {
+  renderCart();
+  document.getElementById("cartModal").classList.add("active");
+}
+
+function closeCart() {
+  document.getElementById("cartModal").classList.remove("active");
+}
+
+function renderCart() {
+  const content = document.getElementById("cartContent");
+  if (cart.length === 0) {
+    content.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-cart-icon"></div>
+        <p>Tu carrito está vacío</p>
+        <p style="font-size:14px; margin-top:8px;">Agrega productos del menú</p>
+      </div>
+    `;
+    return;
+  }
+  
+  const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  
+  content.innerHTML = `
+    <div id="cartItems">
+      ${cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <strong>${item.name}</strong>
+            <small>$${parseFloat(item.price).toFixed(2)} c/u</small>
+          </div>
+          <div class="cart-item-qty">
+            <button onclick="changeQty(${item.id}, -1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+        </div>
+      `).join("")}
     </div>
-  `).join("");
+    <div class="cart-total">Total: <span>$${total.toFixed(2)}</span></div>
+    
+    <div class="form-group">
+      <label>👤 Tu nombre (opcional):</label>
+      <input type="text" id="customerName" placeholder="Juan Pérez">
+    </div>
+    <div class="form-group">
+      <label>🪑 Número de mesa (opcional):</label>
+      <input type="text" id="tableNumber" placeholder="5">
+    </div>
+    <div class="form-group">
+      <label>📝 Notas adicionales (opcional):</label>
+      <textarea id="orderNotes" rows="2" placeholder="Sin cebolla, extra salsa..."></textarea>
+    </div>
+    
+    <button class="whatsapp-btn" onclick="sendOrder()" ${!config.whatsapp ? 'disabled title="Configura el WhatsApp en el panel admin"' : ''}>
+      📱 Enviar pedido por WhatsApp
+    </button>
+    ${!config.whatsapp ? '<p style="color:#c0392b; font-size:12px; text-align:center; margin-top:8px;">⚠️ El dueño debe configurar su número de WhatsApp en el panel admin</p>' : ''}
+  `;
+}
+
+function sendOrder() {
+  if (!config.whatsapp) {
+    alert("El número de WhatsApp no está configurado. Avísale al dueño.");
+    return;
+  }
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío");
+    return;
+  }
+  
+  const customerName = document.getElementById("customerName").value.trim();
+  const tableNumber = document.getElementById("tableNumber").value.trim();
+  const notes = document.getElementById("orderNotes").value.trim();
+  const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  
+  let message = `🍽️ *NUEVO PEDIDO - ${config.businessName}*\n\n`;
+  if (customerName) message += ` *Cliente:* ${customerName}\n`;
+  if (tableNumber) message += ` *Mesa:* ${tableNumber}\n`;
+  message += `\n📋 *Productos:*\n`;
+  
+  cart.forEach(item => {
+    message += `• ${item.qty}x ${item.name} - $${(item.price * item.qty).toFixed(2)}\n`;
+  });
+  
+  message += `\n💰 *TOTAL: $${total.toFixed(2)}*\n`;
+  if (notes) message += `\n📝 *Notas:* ${notes}\n`;
+  message += `\n⏰ ${new Date().toLocaleString('es')}`;
+  
+  const encoded = encodeURIComponent(message);
+  const url = `https://wa.me/${config.whatsapp}?text=${encoded}`;
+  
+  window.open(url, "_blank");
+  
+  // Opcional: limpiar carrito después de enviar
+  if (confirm("¿Limpiar el carrito después de enviar?")) {
+    cart = [];
+    saveCart();
+    renderMenu();
+    closeCart();
+  }
 }
 
 function renderItemList() {
@@ -162,7 +381,9 @@ function addProduct() {
 function deleteProduct(id) {
   if (confirm("¿Eliminar este producto?")) {
     products = products.filter(p => p.id !== id);
+    cart = cart.filter(c => c.id !== id);
     saveProducts();
+    saveCart();
     renderMenu();
     renderItemList();
   }
@@ -173,8 +394,10 @@ function toggleAdmin() {
   panel.classList.toggle("active");
   if (panel.classList.contains("active")) {
     document.getElementById("clientView").classList.add("hidden");
+    document.querySelector(".cart-btn").classList.add("hidden");
   } else {
     document.getElementById("clientView").classList.remove("hidden");
+    document.querySelector(".cart-btn").classList.remove("hidden");
   }
 }
 
@@ -182,6 +405,8 @@ function login() {
   if (document.getElementById("adminPass").value === ADMIN_PASSWORD) {
     document.getElementById("loginForm").classList.add("hidden");
     document.getElementById("adminContent").classList.remove("hidden");
+    document.getElementById("whatsappNumber").value = config.whatsapp || "";
+    document.getElementById("businessName").value = config.businessName || "";
     renderItemList();
     generateQR();
   } else {
@@ -195,6 +420,7 @@ function logout() {
   document.getElementById("adminPass").value = "";
   document.getElementById("adminPanel").classList.remove("active");
   document.getElementById("clientView").classList.remove("hidden");
+  document.querySelector(".cart-btn").classList.remove("hidden");
 }
 
 function generateQR() {
@@ -205,7 +431,13 @@ function generateQR() {
   document.getElementById("qrUrl").textContent = url;
 }
 
+// Cerrar modal al hacer click fuera
+document.getElementById("cartModal").addEventListener("click", (e) => {
+  if (e.target.id === "cartModal") closeCart();
+});
+
 renderMenu();
+updateCartCount();
 </script>
 </body>
 </html>
