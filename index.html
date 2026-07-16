@@ -9,21 +9,18 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
   body { background: #f5f5f5; padding: 16px; }
   
-  /* HEADER PÚBLICO */
   .public-header { text-align: center; margin-bottom: 24px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
   .public-header h1 { color: #d35400; font-size: 32px; margin-bottom: 8px; }
   .public-header p { color: #666; font-size: 14px; }
   
-  /* BOTÓN ACCESO PERSONAL (discreto) */
   .staff-access { position: fixed; bottom: 16px; left: 16px; background: #2c3e50; color: white; border: none; padding: 10px 16px; border-radius: 50px; cursor: pointer; font-size: 12px; opacity: 0.6; transition: opacity 0.2s; z-index: 100; }
   .staff-access:hover { opacity: 1; }
   
-  /* LOGIN */
   .login-container { max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
   .login-container h1 { text-align: center; color: #2c3e50; margin-bottom: 24px; }
   .form-group { margin-bottom: 16px; }
   .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #2c3e50; }
-  .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
   .btn { background: #d35400; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; font-size: 15px; }
   .btn:hover { background: #e67e22; }
   .btn-secondary { background: #7f8c8d; }
@@ -32,20 +29,17 @@
   .btn-warning { background: #f39c12; }
   .btn-info { background: #3498db; }
   
-  /* HEADER APP */
   .header { background: #2c3e50; color: white; padding: 16px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   .header h1 { font-size: 24px; }
   .header-info { display: flex; gap: 16px; align-items: center; font-size: 14px; }
   .user-badge { background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 6px; }
   .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; }
   
-  /* NAV */
   .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .nav-tab { background: white; border: 2px solid #ddd; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
   .nav-tab:hover { border-color: #d35400; }
   .nav-tab.active { background: #d35400; color: white; border-color: #d35400; }
   
-  /* MENU GRID */
   .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; max-width: 1200px; margin: 0 auto; }
   .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
   .card img { width: 100%; height: 180px; object-fit: cover; }
@@ -54,11 +48,9 @@
   .card p { color: #666; font-size: 14px; margin-bottom: 10px; }
   .price { color: #d35400; font-weight: bold; font-size: 18px; }
   
-  /* ORDER BUTTON */
   .order-fab { position: fixed; bottom: 24px; right: 24px; background: #d35400; color: white; border: none; padding: 16px 24px; border-radius: 50px; cursor: pointer; font-size: 16px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 100; }
   .order-fab:hover { background: #e67e22; transform: translateY(-2px); }
   
-  /* MODAL */
   .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: flex-end; }
   .modal-overlay.active { display: flex; }
   .modal { background: white; width: 100%; max-width: 600px; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 24px; overflow-y: auto; animation: slideUp 0.3s; }
@@ -66,7 +58,6 @@
   .modal h2 { color: #2c3e50; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
   .close-modal { background: none; border: none; font-size: 28px; cursor: pointer; color: #666; }
   
-  /* TABLES GRID */
   .tables-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
   .table-card { background: white; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; border: 3px solid transparent; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
   .table-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -78,32 +69,164 @@
   .table-card.available .status { color: #27ae60; }
   .table-card.occupied .status { color: #e74c3c; font-weight: bold; }
   
-  /* ORDER ITEMS */
   .order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9f9f9; border-radius: 8px; margin-bottom: 8px; }
   .order-item-info { flex: 1; }
   .order-item-name { font-weight: 600; color: #2c3e50; }
-  .order-item-price { color: #d35400; font-weight: bold; }
   .order-item-qty { display: flex; align-items: center; gap: 8px; margin: 0 12px; }
   .order-item-qty button { background: #d35400; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
   .qty-badge { background: #2c3e50; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; min-width: 30px; text-align: center; }
   
-  /* KITCHEN ORDERS */
-  .kitchen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; }
-  .kitchen-card { background: white; border-radius: 12px; padding: 16px; border-left: 6px solid #f39c12; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .kitchen-card.urgent { border-left-color: #e74c3c; background: #ffeaea; animation: pulse 2s infinite; }
-  .kitchen-card.ready { border-left-color: #27ae60; background: #f0fff4; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
-  .kitchen-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .kitchen-title { font-weight: bold; font-size: 16px; color: #2c3e50; }
-  .kitchen-time { font-size: 13px; color: #666; }
-  .kitchen-time.urgent { color: #e74c3c; font-weight: bold; }
-  .kitchen-meta { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-  .kitchen-meta span { background: #f0f0f0; padding: 4px 10px; border-radius: 4px; font-size: 13px; }
-  .kitchen-items { margin: 10px 0; }
-  .kitchen-item { padding: 6px 0; border-bottom: 1px dashed #eee; display: flex; justify-content: space-between; }
-  .kitchen-item:last-child { border-bottom: none; }
-  .kitchen-actions { display: flex; gap: 8px; margin-top: 12px; }
-  .kitchen-actions button { flex: 1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  /* ===== PANEL DE COCINA CON 3 COLUMNAS ===== */
+  .kitchen-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    min-height: 70vh;
+  }
+  @media (max-width: 900px) {
+    .kitchen-board { grid-template-columns: 1fr; }
+  }
+  
+  .kitchen-column {
+    background: #f0f0f0;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .kitchen-column-header {
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .kitchen-column-header .count {
+    background: rgba(255,255,255,0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  
+  .col-local .kitchen-column-header { background: #e74c3c; }
+  .col-pickup .kitchen-column-header { background: #f39c12; }
+  .col-delivery .kitchen-column-header { background: #3498db; }
+  
+  .kitchen-column-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 75vh;
+  }
+  
+  .kitchen-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-top: 5px solid #ccc;
+    transition: all 0.2s;
+  }
+  
+  .kitchen-card.urgent {
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  }
+  
+  .col-local .kitchen-card { border-top-color: #e74c3c; }
+  .col-pickup .kitchen-card { border-top-color: #f39c12; }
+  .col-delivery .kitchen-card { border-top-color: #3498db; }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+  
+  .kitchen-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .kitchen-card-number { font-weight: bold; font-size: 18px; color: #2c3e50; }
+  .kitchen-card-time { font-size: 12px; color: #666; }
+  .kitchen-card-time.urgent { color: #e74c3c; font-weight: bold; }
+  
+  .kitchen-card-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .kitchen-card-meta span {
+    background: #f0f0f0;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .kitchen-card-items {
+    margin: 10px 0;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
+    padding: 8px 0;
+  }
+  .kitchen-card-item {
+    padding: 4px 0;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .kitchen-card-item strong { color: #2c3e50; }
+  
+  .kitchen-card-notes {
+    background: #fff9e6;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #7d6608;
+    margin: 8px 0;
+    border-left: 3px solid #f1c40f;
+  }
+  
+  .kitchen-card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .kitchen-card-actions button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    color: white;
+  }
+  .btn-ready { background: #27ae60; }
+  .btn-ready:hover { background: #1e8449; }
+  .btn-delivered { background: #3498db; }
+  .btn-delivered:hover { background: #2980b9; }
+  
+  .kitchen-empty {
+    text-align: center;
+    padding: 30px 20px;
+    color: #999;
+    background: white;
+    border-radius: 8px;
+    border: 2px dashed #ddd;
+  }
+  .kitchen-empty .icon { font-size: 36px; margin-bottom: 8px; }
   
   /* CASHIER */
   .cashier-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
@@ -113,7 +236,6 @@
   .cashier-items { margin: 12px 0; max-height: 200px; overflow-y: auto; }
   .cashier-item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
   
-  /* ADMIN PANEL */
   .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
   .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
   .stat-card .value { font-size: 32px; font-weight: bold; color: #d35400; }
@@ -121,7 +243,6 @@
   .reports-section { background: white; padding: 20px; border-radius: 12px; margin-bottom: 16px; }
   .reports-section h3 { margin-bottom: 16px; color: #2c3e50; }
   
-  /* UTILS */
   .hidden { display: none !important; }
   .text-center { text-align: center; }
   .mt-2 { margin-top: 16px; }
@@ -133,32 +254,24 @@
   .badge-danger { background: #f8d7da; color: #721c24; }
   .badge-warning { background: #fff3cd; color: #856404; }
   
-  /* TOAST */
   .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #27ae60; color: white; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 300; animation: fadeIn 0.3s; }
   @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -20px); } to { opacity: 1; transform: translate(-50%, 0); } }
 </style>
 </head>
 <body>
 
-<!-- VISTA PÚBLICA (MENÚ DIGITAL) -->
+<!-- VISTA PÚBLICA -->
 <div id="publicView">
   <div class="public-header">
     <h1 id="businessNameDisplay">🍽️ Mi Restaurante</h1>
     <p>Bienvenido - Escanea y disfruta</p>
   </div>
-  
   <div class="menu-grid" id="publicMenuGrid"></div>
-  
-  <button class="order-fab" onclick="customerOrderFlow()">
-    🛒 Hacer Pedido
-  </button>
-  
-  <button class="staff-access" onclick="showLogin()">
-     Acceso Personal
-  </button>
+  <button class="order-fab" onclick="customerOrderFlow()">🛒 Hacer Pedido</button>
+  <button class="staff-access" onclick="showLogin()">🔐 Acceso Personal</button>
 </div>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="loginScreen" class="login-container hidden">
   <h1>🔐 Acceso Personal</h1>
   <div class="form-group">
@@ -178,9 +291,7 @@
   </div>
   <button class="btn" onclick="login()">Ingresar</button>
   <button class="btn btn-secondary mt-2" onclick="backToPublic()">← Volver al Menú</button>
-  <p style="text-align: center; margin-top: 16px; font-size: 13px; color: #666;">
-    Contraseña por defecto: <strong>1234</strong>
-  </p>
+  <p style="text-align: center; margin-top: 16px; font-size: 13px; color: #666;">Contraseña por defecto: <strong>1234</strong></p>
 </div>
 
 <!-- MAIN APP -->
@@ -193,9 +304,7 @@
       <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
     </div>
   </div>
-  
   <div class="nav-tabs" id="navTabs"></div>
-  
   <div id="contentArea"></div>
 </div>
 
@@ -205,7 +314,6 @@
 </div>
 
 <script>
-// CONFIGURACIÓN
 const DEFAULT_PASS = "1234";
 const USERS = {
   'mesero1': { name: 'Mesero 1', role: 'waiter', pass: DEFAULT_PASS },
@@ -215,7 +323,6 @@ const USERS = {
   'admin': { name: 'Administrador', role: 'admin', pass: DEFAULT_PASS }
 };
 
-// DATOS
 let currentUser = null;
 let products = JSON.parse(localStorage.getItem("products") || "[]");
 let tables = JSON.parse(localStorage.getItem("tables") || '[{"id":1,"number":1,"status":"available"},{"id":2,"number":2,"status":"available"},{"id":3,"number":3,"status":"available"},{"id":4,"number":4,"status":"available"},{"id":5,"number":5,"status":"available"},{"id":6,"number":6,"status":"available"}]');
@@ -223,7 +330,6 @@ let orders = JSON.parse(localStorage.getItem("orders") || "[]");
 let orderCounter = parseInt(localStorage.getItem("orderCounter") || "1");
 let config = JSON.parse(localStorage.getItem("config") || '{"whatsapp":"","businessName":"Mi Restaurante"}');
 
-// PRODUCTOS DE EJEMPLO
 if (products.length === 0) {
   products = [
     { id: 1, name: "Hamburguesa Clásica", desc: "Carne 200g, queso, lechuga, tomate", price: 5.50, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" },
@@ -244,7 +350,6 @@ function saveData() {
   localStorage.setItem("config", JSON.stringify(config));
 }
 
-// INICIALIZAR VISTA PÚBLICA
 function initPublicView() {
   document.getElementById("businessNameDisplay").textContent = `🍽️ ${config.businessName}`;
   renderPublicMenu();
@@ -274,27 +379,16 @@ function backToPublic() {
   document.getElementById("publicView").classList.remove("hidden");
 }
 
-// LOGIN
 function login() {
   const user = document.getElementById("loginUser").value;
   const pass = document.getElementById("loginPass").value;
-  
-  if (!user || !USERS[user]) {
-    showToast("❌ Usuario inválido", "error");
-    return;
-  }
-  
-  if (pass !== USERS[user].pass) {
-    showToast("❌ Contraseña incorrecta", "error");
-    return;
-  }
-  
+  if (!user || !USERS[user]) { showToast("❌ Usuario inválido", "error"); return; }
+  if (pass !== USERS[user].pass) { showToast("❌ Contraseña incorrecta", "error"); return; }
   currentUser = { id: user, ...USERS[user] };
   document.getElementById("loginScreen").classList.add("hidden");
   document.getElementById("mainApp").classList.remove("hidden");
   document.getElementById("userBadge").textContent = `${currentUser.name} (${getRoleName(currentUser.role)})`;
   document.getElementById("currentDate").textContent = new Date().toLocaleString('es');
-  
   initApp();
   showToast(`✅ Bienvenido ${currentUser.name}`);
 }
@@ -312,7 +406,6 @@ function getRoleName(role) {
   return roles[role] || role;
 }
 
-// INICIALIZAR APP
 function initApp() {
   renderNavTabs();
   renderContent();
@@ -321,26 +414,20 @@ function initApp() {
 function renderNavTabs() {
   const tabs = document.getElementById("navTabs");
   const role = currentUser.role;
-  
   let tabHTML = '';
-  
   if (role === 'waiter' || role === 'admin') {
-    tabHTML += `<button class="nav-tab ${role === 'waiter' ? 'active' : ''}" onclick="showView('menu')">🍽️ Menú</button>`;
+    tabHTML += `<button class="nav-tab ${role === 'waiter' ? 'active' : ''}" onclick="showView('menu')">️ Menú</button>`;
     tabHTML += `<button class="nav-tab" onclick="showView('tables')">🪑 Mesas</button>`;
   }
-  
   if (role === 'kitchen' || role === 'admin') {
-    tabHTML += `<button class="nav-tab ${role === 'kitchen' ? 'active' : ''}" onclick="showView('kitchen')">👨‍🍳 Cocina</button>`;
+    tabHTML += `<button class="nav-tab ${role === 'kitchen' ? 'active' : ''}" onclick="showView('kitchen')">👨‍ Cocina</button>`;
   }
-  
   if (role === 'cashier' || role === 'admin') {
     tabHTML += `<button class="nav-tab ${role === 'cashier' ? 'active' : ''}" onclick="showView('cashier')">💰 Caja</button>`;
   }
-  
   if (role === 'admin') {
     tabHTML += `<button class="nav-tab" onclick="showView('admin')">📊 Admin</button>`;
   }
-  
   tabs.innerHTML = tabHTML;
 }
 
@@ -353,31 +440,18 @@ function showView(view) {
 function renderContent(view) {
   const content = document.getElementById("contentArea");
   const role = currentUser.role;
-  
   if (!view) {
     view = role === 'waiter' ? 'menu' : role === 'kitchen' ? 'kitchen' : role === 'cashier' ? 'cashier' : 'admin';
   }
-  
   switch(view) {
-    case 'menu':
-      renderMenuView(content);
-      break;
-    case 'tables':
-      renderTablesView(content);
-      break;
-    case 'kitchen':
-      renderKitchenView(content);
-      break;
-    case 'cashier':
-      renderCashierView(content);
-      break;
-    case 'admin':
-      renderAdminView(content);
-      break;
+    case 'menu': renderMenuView(content); break;
+    case 'tables': renderTablesView(content); break;
+    case 'kitchen': renderKitchenView(content); break;
+    case 'cashier': renderCashierView(content); break;
+    case 'admin': renderAdminView(content); break;
   }
 }
 
-// VISTA MENÚ (MESERO)
 function renderMenuView(container) {
   container.innerHTML = `
     <div class="text-center mb-2">
@@ -396,25 +470,20 @@ function renderMenuView(container) {
         </div>
       `).join("")}
     </div>
-    <button class="order-fab" onclick="openOrderModal()">
-      📝 Tomar Pedido
-    </button>
+    <button class="order-fab" onclick="openOrderModal()">📝 Tomar Pedido</button>
   `;
 }
 
 function openOrderModal() {
   const modal = document.getElementById("modalOverlay");
   const content = document.getElementById("modalContent");
-  
   content.innerHTML = `
     <h2>📝 Tomar Pedido <button class="close-modal" onclick="closeModal()">✕</button></h2>
     <div class="form-group">
       <label>Seleccionar mesa:</label>
       <select id="orderTable">
         <option value="">Seleccione...</option>
-        ${tables.filter(t => t.status === 'available').map(t => `
-          <option value="${t.id}">Mesa ${t.number}</option>
-        `).join("")}
+        ${tables.filter(t => t.status === 'available').map(t => `<option value="${t.id}">Mesa ${t.number}</option>`).join("")}
       </select>
     </div>
     <div class="form-group">
@@ -445,7 +514,6 @@ function openOrderModal() {
     </div>
     <button class="btn btn-success" onclick="saveOrder()">💾 Guardar Pedido</button>
   `;
-  
   window.orderCart = {};
   modal.classList.add("active");
 }
@@ -460,19 +528,11 @@ function saveOrder() {
   const tableId = document.getElementById("orderTable").value;
   const customerName = document.getElementById("orderCustomerName").value.trim();
   const notes = document.getElementById("orderNotes").value.trim();
-  
-  if (!tableId) {
-    showToast("❌ Seleccione una mesa", "error");
-    return;
-  }
-  if (!customerName) {
-    showToast("❌ Ingrese nombre del cliente", "error");
-    return;
-  }
+  if (!tableId) { showToast("❌ Seleccione una mesa", "error"); return; }
+  if (!customerName) { showToast("❌ Ingrese nombre del cliente", "error"); return; }
   
   const items = [];
   let total = 0;
-  
   for (const [productId, qty] of Object.entries(window.orderCart)) {
     if (qty > 0) {
       const product = products.find(p => p.id == productId);
@@ -482,11 +542,7 @@ function saveOrder() {
       }
     }
   }
-  
-  if (items.length === 0) {
-    showToast("❌ Agregue al menos un producto", "error");
-    return;
-  }
+  if (items.length === 0) { showToast("❌ Agregue al menos un producto", "error"); return; }
   
   const table = tables.find(t => t.id == tableId);
   table.status = 'occupied';
@@ -494,7 +550,8 @@ function saveOrder() {
   const order = {
     id: Date.now(),
     number: String(orderCounter++).padStart(3, '0'),
-    type: 'table',
+    type: 'local',
+    channel: 'waiter',
     tableId: parseInt(tableId),
     tableNumber: table.number,
     customerName,
@@ -510,15 +567,10 @@ function saveOrder() {
   saveData();
   closeModal();
   showToast("✅ Pedido guardado y enviado a cocina");
-  
-  // Notificar cocina
-  if (window.BroadcastChannel) {
-    const bc = new BroadcastChannel('kitchen_orders');
-    bc.postMessage({ type: 'new_order', order });
-  }
+  notifyKitchen(order);
 }
 
-// PEDIDO DEL CLIENTE (PÚBLICO)
+// ===== FLUJO DE PEDIDO DEL CLIENTE (3 OPCIONES) =====
 function customerOrderFlow() {
   const modal = document.getElementById("modalOverlay");
   const content = document.getElementById("modalContent");
@@ -526,11 +578,12 @@ function customerOrderFlow() {
   content.innerHTML = `
     <h2>🛒 Hacer Pedido <button class="close-modal" onclick="closeModal()">✕</button></h2>
     <div class="form-group">
-      <label>¿Dónde deseas recibir tu pedido?</label>
+      <label>¿Cómo deseas recibir tu pedido?</label>
       <select id="orderLocation" onchange="toggleOrderFields()" class="mt-2">
         <option value="">Seleccione...</option>
-        <option value="local">Estoy en el local</option>
-        <option value="delivery">Delivery / Recoger</option>
+        <option value="local">🪑 Estoy en el local (comer aquí)</option>
+        <option value="pickup">🥡 Voy a pasar a recoger</option>
+        <option value="delivery">🛵 Envío a domicilio</option>
       </select>
     </div>
     <div id="orderFields" class="hidden">
@@ -544,10 +597,28 @@ function customerOrderFlow() {
           <input type="text" id="customerTable" placeholder="Mesa cerca de la ventana">
         </div>
       </div>
+      <div id="pickupFields" class="hidden">
+        <div class="form-group">
+          <label>📱 Teléfono de contacto:</label>
+          <input type="tel" id="customerPhone" placeholder="555-123-4567">
+        </div>
+        <div class="form-group">
+          <label>⏰ ¿Cuándo pasarás a recoger?</label>
+          <input type="text" id="pickupTime" placeholder="En 30 minutos / A las 3pm">
+        </div>
+      </div>
       <div id="deliveryFields" class="hidden">
         <div class="form-group">
-          <label>Dirección o "Voy a recoger":</label>
-          <input type="text" id="customerAddress" placeholder="Calle 123 #45-67">
+          <label>📍 Dirección de entrega:</label>
+          <input type="text" id="customerAddress" placeholder="Calle 123 #45-67, Colonia...">
+        </div>
+        <div class="form-group">
+          <label>📱 Teléfono de contacto:</label>
+          <input type="tel" id="customerPhone" placeholder="555-123-4567">
+        </div>
+        <div class="form-group">
+          <label> Referencias de la dirección:</label>
+          <input type="text" id="deliveryRef" placeholder="Casa azul, frente al parque...">
         </div>
       </div>
       <div class="form-group">
@@ -572,12 +643,9 @@ function customerOrderFlow() {
         <label>Notas adicionales:</label>
         <textarea id="customerNotes" rows="2" placeholder="Sin cebolla, extra salsa..."></textarea>
       </div>
-      <button class="btn btn-success" onclick="submitCustomerOrder()">
-        📤 Enviar Pedido
-      </button>
+      <button class="btn btn-success" onclick="submitCustomerOrder()">📤 Enviar Pedido</button>
     </div>
   `;
-  
   window.customerCart = {};
   modal.classList.add("active");
 }
@@ -586,17 +654,18 @@ function toggleOrderFields() {
   const location = document.getElementById("orderLocation").value;
   const fields = document.getElementById("orderFields");
   const localFields = document.getElementById("localFields");
+  const pickupFields = document.getElementById("pickupFields");
   const deliveryFields = document.getElementById("deliveryFields");
   
   if (location) {
     fields.classList.remove("hidden");
-    if (location === "local") {
-      localFields.classList.remove("hidden");
-      deliveryFields.classList.add("hidden");
-    } else {
-      localFields.classList.add("hidden");
-      deliveryFields.classList.remove("hidden");
-    }
+    localFields.classList.add("hidden");
+    pickupFields.classList.add("hidden");
+    deliveryFields.classList.add("hidden");
+    
+    if (location === "local") localFields.classList.remove("hidden");
+    else if (location === "pickup") pickupFields.classList.remove("hidden");
+    else if (location === "delivery") deliveryFields.classList.remove("hidden");
   }
 }
 
@@ -611,18 +680,11 @@ function submitCustomerOrder() {
   const name = document.getElementById("customerName").value.trim();
   const notes = document.getElementById("customerNotes").value.trim();
   
-  if (!location) {
-    showToast("❌ Seleccione ubicación", "error");
-    return;
-  }
-  if (!name) {
-    showToast("❌ Ingrese su nombre", "error");
-    return;
-  }
+  if (!location) { showToast("❌ Seleccione ubicación", "error"); return; }
+  if (!name) { showToast("❌ Ingrese su nombre", "error"); return; }
   
   const items = [];
   let total = 0;
-  
   for (const [productId, qty] of Object.entries(window.customerCart)) {
     if (qty > 0) {
       const product = products.find(p => p.id == productId);
@@ -632,63 +694,108 @@ function submitCustomerOrder() {
       }
     }
   }
+  if (items.length === 0) { showToast("❌ Agregue al menos un producto", "error"); return; }
   
-  if (items.length === 0) {
-    showToast("❌ Agregue al menos un producto", "error");
-    return;
-  }
+  const orderNum = String(orderCounter++).padStart(3, '0');
+  const baseOrder = {
+    id: Date.now(),
+    number: orderNum,
+    customerName: name,
+    items,
+    total,
+    notes,
+    status: 'pending',
+    createdAt: new Date().toISOString(),
+    createdBy: 'customer'
+  };
   
   if (location === "local") {
     const tableRef = document.getElementById("customerTable").value.trim() || "Sin especificar";
     const order = {
-      id: Date.now(),
-      number: String(orderCounter++).padStart(3, '0'),
+      ...baseOrder,
       type: 'local',
-      tableRef: tableRef,
-      customerName: name,
-      items,
-      total,
-      notes,
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-      createdBy: 'customer'
+      channel: 'customer',
+      tableRef
     };
-    
     orders.push(order);
     saveData();
     closeModal();
     showToast("✅ Pedido enviado a cocina");
+    notifyKitchen(order);
+  } else if (location === "pickup") {
+    const phone = document.getElementById("customerPhone").value.trim();
+    const pickupTime = document.getElementById("pickupTime").value.trim();
+    if (!phone) { showToast("❌ Ingrese teléfono de contacto", "error"); return; }
     
-    if (window.BroadcastChannel) {
-      const bc = new BroadcastChannel('kitchen_orders');
-      bc.postMessage({ type: 'new_order', order });
-    }
-  } else {
+    const order = {
+      ...baseOrder,
+      type: 'pickup',
+      channel: 'customer',
+      phone,
+      pickupTime: pickupTime || 'Pronto'
+    };
+    orders.push(order);
+    saveData();
+    closeModal();
+    showToast("✅ Pedido enviado a cocina. Te contactaremos pronto.");
+    notifyKitchen(order);
+  } else if (location === "delivery") {
     const address = document.getElementById("customerAddress").value.trim();
-    if (!address) {
-      showToast("❌ Ingrese dirección", "error");
-      return;
-    }
+    const phone = document.getElementById("customerPhone").value.trim();
+    const ref = document.getElementById("deliveryRef").value.trim();
+    if (!address || !phone) { showToast("❌ Complete dirección y teléfono", "error"); return; }
     
-    let message = `🍽️ *NUEVO PEDIDO - ${config.businessName}*\n\n`;
-    message += `👤 *Cliente:* ${name}\n`;
-    message += `📍 *Dirección:* ${address}\n\n`;
-    message += `📋 *Productos:*\n`;
-    items.forEach(item => {
-      message += `• ${item.qty}x ${item.name} - $${(item.price * item.qty).toFixed(2)}\n`;
-    });
-    message += `\n💰 *TOTAL: $${total.toFixed(2)}*\n`;
-    if (notes) message += `\n📝 *Notas:* ${notes}\n`;
+    const order = {
+      ...baseOrder,
+      type: 'delivery',
+      channel: 'customer',
+      address,
+      phone,
+      deliveryRef: ref
+    };
+    orders.push(order);
+    saveData();
     
-    const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/${config.whatsapp}?text=${encoded}`, "_blank");
+    // También enviar por WhatsApp
+    sendWhatsAppOrder(order);
     
     closeModal();
-    showToast("✅ Pedido listo para enviar por WhatsApp");
+    showToast("✅ Pedido enviado a cocina y WhatsApp");
+    notifyKitchen(order);
   }
 }
 
-// VISTA MESAS (MESERO)
+function sendWhatsAppOrder(order) {
+  if (!config.whatsapp) return;
+  
+  let message = `🍽️ *NUEVO PEDIDO - ${config.businessName}*\n\n`;
+  message += `📋 *Tipo:* ENVÍO A DOMICILIO\n`;
+  message += `👤 *Cliente:* ${order.customerName}\n`;
+  message += `📱 *Teléfono:* ${order.phone}\n`;
+  message += `📍 *Dirección:* ${order.address}\n`;
+  if (order.deliveryRef) message += `🏠 *Referencia:* ${order.deliveryRef}\n`;
+  message += `\n🛒 *Productos:*\n`;
+  order.items.forEach(item => {
+    message += `• ${item.qty}x ${item.name} - $${(item.price * item.qty).toFixed(2)}\n`;
+  });
+  message += `\n💰 *TOTAL: $${order.total.toFixed(2)}*\n`;
+  if (order.notes) message += `\n *Notas:* ${order.notes}\n`;
+  message += `\n⏰ ${new Date().toLocaleString('es')}`;
+  
+  const encoded = encodeURIComponent(message);
+  setTimeout(() => {
+    window.open(`https://wa.me/${config.whatsapp}?text=${encoded}`, "_blank");
+  }, 500);
+}
+
+function notifyKitchen(order) {
+  if (window.BroadcastChannel) {
+    const bc = new BroadcastChannel('kitchen_orders');
+    bc.postMessage({ type: 'new_order', order });
+  }
+}
+
+// ===== VISTA MESAS =====
 function renderTablesView(container) {
   container.innerHTML = `
     <h2 class="mb-2">🪑 Gestión de Mesas</h2>
@@ -711,7 +818,6 @@ function renderTablesView(container) {
 function openTable(tableId) {
   const table = tables.find(t => t.id === tableId);
   const existingOrder = orders.find(o => o.tableId === tableId && o.status !== 'paid');
-  
   const modal = document.getElementById("modalOverlay");
   const content = document.getElementById("modalContent");
   
@@ -744,15 +850,13 @@ function openTable(tableId) {
         <label>Notas:</label>
         <textarea id="tableNotes" rows="2"></textarea>
       </div>
-      <button class="btn btn-success" onclick="saveTableOrder(${tableId})">
-        💾 Guardar Pedido
-      </button>
+      <button class="btn btn-success" onclick="saveTableOrder(${tableId})">💾 Guardar Pedido</button>
     `;
     window.tableCart = {};
     window.currentTableId = tableId;
   } else {
     content.innerHTML = `
-      <h2>🪑 Mesa ${table.number} <button class="close-modal" onclick="closeModal()">✕</button></h2>
+      <h2>🪑 Mesa ${table.number} <button class="close-modal" onclick="closeModal()"></button></h2>
       <div class="bg-light p-2 mb-2" style="border-radius: 8px;">
         <strong>Cliente:</strong> ${existingOrder.customerName || 'Sin nombre'}<br>
         <strong>Estado:</strong> <span class="badge badge-${existingOrder.status === 'pending' ? 'warning' : 'success'}">${existingOrder.status}</span>
@@ -767,41 +871,13 @@ function openTable(tableId) {
         `).join("")}
       </div>
       <div class="cashier-total mb-2">Total: $${existingOrder.total.toFixed(2)}</div>
-      <div class="form-group">
-        <label>Agregar más productos:</label>
-        <div id="addProductList">
-          ${products.map(p => `
-            <div class="order-item">
-              <div class="order-item-info">
-                <div class="order-item-name">${p.name}</div>
-                <div style="color: #d35400; font-weight: bold;">$${parseFloat(p.price).toFixed(2)}</div>
-              </div>
-              <div class="order-item-qty">
-                <button onclick="addToExistingOrder(${existingOrder.id}, ${p.id}, -1)">-</button>
-                <span class="qty-badge">0</span>
-                <button onclick="addToExistingOrder(${existingOrder.id}, ${p.id}, 1)">+</button>
-              </div>
-            </div>
-          `).join("")}
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Notas adicionales:</label>
-        <textarea id="addNotes" rows="2"></textarea>
-      </div>
       ${existingOrder.status === 'pending' ? `
-        <button class="btn btn-warning" onclick="markTableReady(${existingOrder.id})">
-          ✅ Listo para entregar
-        </button>
+        <button class="btn btn-warning" onclick="markTableReady(${existingOrder.id})">✅ Listo para entregar</button>
       ` : `
-        <button class="btn btn-success" onclick="sendToCashier(${existingOrder.id})">
-          💰 Enviar a Caja
-        </button>
+        <button class="btn btn-success" onclick="sendToCashier(${existingOrder.id})">💰 Enviar a Caja</button>
       `}
     `;
-    window.currentOrderId = existingOrder.id;
   }
-  
   modal.classList.add("active");
 }
 
@@ -814,15 +890,10 @@ function updateTableQty(productId, delta) {
 function saveTableOrder(tableId) {
   const customerName = document.getElementById("tableName").value.trim();
   const notes = document.getElementById("tableNotes").value.trim();
-  
-  if (!customerName) {
-    showToast("❌ Ingrese nombre del cliente", "error");
-    return;
-  }
+  if (!customerName) { showToast("❌ Ingrese nombre del cliente", "error"); return; }
   
   const items = [];
   let total = 0;
-  
   for (const [productId, qty] of Object.entries(window.tableCart)) {
     if (qty > 0) {
       const product = products.find(p => p.id == productId);
@@ -832,11 +903,7 @@ function saveTableOrder(tableId) {
       }
     }
   }
-  
-  if (items.length === 0) {
-    showToast("❌ Agregue al menos un producto", "error");
-    return;
-  }
+  if (items.length === 0) { showToast("❌ Agregue al menos un producto", "error"); return; }
   
   const table = tables.find(t => t.id === tableId);
   table.status = 'occupied';
@@ -844,7 +911,8 @@ function saveTableOrder(tableId) {
   const order = {
     id: Date.now(),
     number: String(orderCounter++).padStart(3, '0'),
-    type: 'table',
+    type: 'local',
+    channel: 'waiter',
     tableId,
     tableNumber: table.number,
     customerName,
@@ -861,15 +929,7 @@ function saveTableOrder(tableId) {
   closeModal();
   renderTablesView(document.getElementById("contentArea"));
   showToast("✅ Pedido guardado");
-  
-  if (window.BroadcastChannel) {
-    const bc = new BroadcastChannel('kitchen_orders');
-    bc.postMessage({ type: 'new_order', order });
-  }
-}
-
-function addToExistingOrder(orderId, productId, delta) {
-  showToast("⚠️ Función en desarrollo", "info");
+  notifyKitchen(order);
 }
 
 function markTableReady(orderId) {
@@ -895,82 +955,140 @@ function sendToCashier(orderId) {
   }
 }
 
-// VISTA COCINA
+// ===== PANEL DE COCINA CON 3 COLUMNAS =====
 function renderKitchenView(container) {
-  const pendingOrders = orders.filter(o => o.status === 'pending' && o.type !== 'whatsapp').sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  const readyOrders = orders.filter(o => o.status === 'ready').sort((a, b) => new Date(b.readyAt) - new Date(a.readyAt));
+  const now = new Date();
+  
+  // Filtrar pedidos activos (no pagados, no cancelados)
+  const activeOrders = orders.filter(o => 
+    !['paid', 'cancelled'].includes(o.status)
+  );
+  
+  // Separar por tipo
+  const localOrders = activeOrders
+    .filter(o => o.type === 'local')
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  
+  const pickupOrders = activeOrders
+    .filter(o => o.type === 'pickup')
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  
+  const deliveryOrders = activeOrders
+    .filter(o => o.type === 'delivery')
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   
   container.innerHTML = `
-    <h2 class="mb-2">‍🍳 Panel de Cocina</h2>
-    <div class="kitchen-grid">
-      ${pendingOrders.length === 0 && readyOrders.length === 0 ? `
-        <div class="text-center p-2" style="grid-column: 1/-1; background: white; border-radius: 12px;">
-          <div style="font-size: 48px; margin-bottom: 12px;">🍳</div>
-          <p>No hay pedidos pendientes</p>
+    <h2 class="mb-2">👨‍ Panel de Cocina</h2>
+    <div class="kitchen-board">
+      <!-- COLUMNA 1: LOCAL (PRIORIDAD ALTA) -->
+      <div class="kitchen-column col-local">
+        <div class="kitchen-column-header">
+          <span> LOCAL</span>
+          <span class="count">${localOrders.length}</span>
         </div>
-      ` : ''}
-      
-      ${pendingOrders.map(o => {
-        const created = new Date(o.createdAt);
-        const minutesAgo = Math.floor((new Date() - created) / 60000);
-        const isUrgent = minutesAgo >= 15;
-        
-        return `
-          <div class="kitchen-card ${isUrgent ? 'urgent' : ''}">
-            <div class="kitchen-header">
-              <div>
-                <div class="kitchen-title">Pedido #${o.number}</div>
-                <div class="kitchen-time ${isUrgent ? 'urgent' : ''}">
-                  ${isUrgent ? `⚠️ ${minutesAgo} min` : created.toLocaleTimeString('es', {hour: '2-digit', minute: '2-digit'})}
-                </div>
-              </div>
-              <div style="font-weight: bold; color: #d35400;">$${o.total.toFixed(2)}</div>
+        <div class="kitchen-column-body">
+          ${localOrders.length === 0 ? `
+            <div class="kitchen-empty">
+              <div class="icon">🍽️</div>
+              <p>Sin pedidos en el local</p>
             </div>
-            <div class="kitchen-meta">
-              ${o.type === 'table' ? `<span> Mesa ${o.tableNumber}</span>` : ''}
-              ${o.customerName ? `<span> ${o.customerName}</span>` : ''}
-              ${o.type === 'local' ? '<span>📱 Cliente directo</span>' : ''}
-            </div>
-            <div class="kitchen-items">
-              ${o.items.map(item => `
-                <div class="kitchen-item">
-                  <span><strong>${item.qty}x</strong> ${item.name}</span>
-                </div>
-              `).join("")}
-            </div>
-            ${o.notes ? `<div style="background: #fff3cd; padding: 8px; border-radius: 6px; margin-top: 8px; font-size: 13px;">📝 ${o.notes}</div>` : ''}
-            <div class="kitchen-actions">
-              <button class="btn-success" onclick="markOrderReady(${o.id})">✅ Listo</button>
-            </div>
-          </div>
-        `;
-      }).join("")}
-      
-      ${readyOrders.map(o => `
-        <div class="kitchen-card ready">
-          <div class="kitchen-header">
-            <div>
-              <div class="kitchen-title">Pedido #${o.number}</div>
-              <div class="kitchen-time">Listo</div>
-            </div>
-            <div style="font-weight: bold; color: #d35400;">$${o.total.toFixed(2)}</div>
-          </div>
-          <div class="kitchen-meta">
-            ${o.type === 'table' ? `<span>🪑 Mesa ${o.tableNumber}</span>` : ''}
-            ${o.customerName ? `<span>👤 ${o.customerName}</span>` : ''}
-          </div>
-          <div class="kitchen-items">
-            ${o.items.map(item => `
-              <div class="kitchen-item">
-                <span><strong>${item.qty}x</strong> ${item.name}</span>
-              </div>
-            `).join("")}
-          </div>
-          <div class="kitchen-actions">
-            <button class="btn-info" onclick="markOrderDelivered(${o.id})">🚚 Entregado</button>
-          </div>
+          ` : localOrders.map(o => renderKitchenCard(o, now)).join("")}
         </div>
-      `).join("")}
+      </div>
+      
+      <!-- COLUMNA 2: PICKUP (PRIORIDAD MEDIA) -->
+      <div class="kitchen-column col-pickup">
+        <div class="kitchen-column-header">
+          <span> PARA RECOGER</span>
+          <span class="count">${pickupOrders.length}</span>
+        </div>
+        <div class="kitchen-column-body">
+          ${pickupOrders.length === 0 ? `
+            <div class="kitchen-empty">
+              <div class="icon">🥡</div>
+              <p>Sin pedidos para recoger</p>
+            </div>
+          ` : pickupOrders.map(o => renderKitchenCard(o, now)).join("")}
+        </div>
+      </div>
+      
+      <!-- COLUMNA 3: DELIVERY (PRIORIDAD BAJA) -->
+      <div class="kitchen-column col-delivery">
+        <div class="kitchen-column-header">
+          <span>🛵 DOMICILIO</span>
+          <span class="count">${deliveryOrders.length}</span>
+        </div>
+        <div class="kitchen-column-body">
+          ${deliveryOrders.length === 0 ? `
+            <div class="kitchen-empty">
+              <div class="icon">🛵</div>
+              <p>Sin pedidos a domicilio</p>
+            </div>
+          ` : deliveryOrders.map(o => renderKitchenCard(o, now)).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderKitchenCard(order, now) {
+  const created = new Date(order.createdAt);
+  const minutesAgo = Math.floor((now - created) / 60000);
+  const isUrgent = minutesAgo >= 15;
+  
+  const timeStr = created.toLocaleTimeString('es', {hour: '2-digit', minute: '2-digit'});
+  const timeLabel = isUrgent ? `⚠️ ${minutesAgo} min` : timeStr;
+  const timeClass = isUrgent ? 'kitchen-card-time urgent' : 'kitchen-card-time';
+  
+  // Info adicional según tipo
+  let extraMeta = '';
+  if (order.type === 'local') {
+    if (order.tableNumber) extraMeta += `<span>🪑 Mesa ${order.tableNumber}</span>`;
+    else if (order.tableRef) extraMeta += `<span>📍 ${order.tableRef}</span>`;
+    if (order.channel === 'customer') extraMeta += `<span> Cliente directo</span>`;
+    else if (order.channel === 'waiter') extraMeta += `<span>👨‍🍳 Mesero</span>`;
+  } else if (order.type === 'pickup') {
+    extraMeta += `<span>📱 ${order.phone || ''}</span>`;
+    if (order.pickupTime) extraMeta += `<span> ${order.pickupTime}</span>`;
+  } else if (order.type === 'delivery') {
+    extraMeta += `<span>📱 ${order.phone || ''}</span>`;
+    if (order.address) extraMeta += `<span> ${order.address.substring(0, 30)}...</span>`;
+  }
+  
+  // Botones según estado
+  let actions = '';
+  if (order.status === 'pending') {
+    actions = `<button class="btn-ready" onclick="markOrderReady(${order.id})">✅ Listo</button>`;
+  } else if (order.status === 'ready') {
+    actions = `<button class="btn-delivered" onclick="markOrderDelivered(${order.id})">🚚 Entregado</button>`;
+  } else if (order.status === 'delivered' || order.status === 'to_cashier') {
+    actions = `<button class="btn-delivered" onclick="sendToCashier(${order.id})">💰 A caja</button>`;
+  }
+  
+  return `
+    <div class="kitchen-card ${isUrgent ? 'urgent' : ''}">
+      <div class="kitchen-card-header">
+        <div>
+          <div class="kitchen-card-number">#${order.number}</div>
+          <div class="${timeClass}">${timeLabel}</div>
+        </div>
+        <div style="font-weight: bold; color: #d35400;">$${order.total.toFixed(2)}</div>
+      </div>
+      <div class="kitchen-card-meta">
+        <span> ${order.customerName || 'Sin nombre'}</span>
+        ${extraMeta}
+      </div>
+      <div class="kitchen-card-items">
+        ${order.items.map(item => `
+          <div class="kitchen-card-item">
+            <strong>${item.qty}x ${item.name}</strong>
+          </div>
+        `).join("")}
+      </div>
+      ${order.notes ? `<div class="kitchen-card-notes">📝 ${order.notes}</div>` : ''}
+      <div class="kitchen-card-actions">
+        ${actions}
+      </div>
     </div>
   `;
 }
@@ -997,9 +1115,9 @@ function markOrderDelivered(orderId) {
   }
 }
 
-// VISTA CAJERO
+// ===== VISTA CAJERO =====
 function renderCashierView(container) {
-  const toCashierOrders = orders.filter(o => o.status === 'to_cashier' || o.status === 'delivered');
+  const toCashierOrders = orders.filter(o => ['to_cashier', 'delivered'].includes(o.status));
   
   container.innerHTML = `
     <h2 class="mb-2">💰 Caja - Pedidos por Cobrar</h2>
@@ -1010,14 +1128,14 @@ function renderCashierView(container) {
           <p>No hay pedidos pendientes de cobro</p>
         </div>
       ` : ''}
-      
       ${toCashierOrders.map(o => `
         <div class="cashier-card">
           <div class="cashier-header">
             <div>
               <div style="font-weight: bold; font-size: 18px;">Pedido #${o.number}</div>
               <div style="font-size: 13px; color: #666;">
-                ${o.type === 'table' ? `🪑 Mesa ${o.tableNumber}` : '📱 Delivery'}
+                ${o.type === 'local' ? `🪑 Mesa ${o.tableNumber || o.tableRef || 'N/A'}` : 
+                  o.type === 'pickup' ? '🥡 Para recoger' : '🛵 Domicilio'}
               </div>
               <div style="font-size: 13px;">👤 ${o.customerName || 'Sin nombre'}</div>
             </div>
@@ -1032,9 +1150,7 @@ function renderCashierView(container) {
             `).join("")}
           </div>
           ${o.notes ? `<div style="font-size: 13px; color: #666; margin-bottom: 12px;">📝 ${o.notes}</div>` : ''}
-          <button class="btn btn-success" onclick="processPayment(${o.id})">
-            💳 Cobrar e Imprimir
-          </button>
+          <button class="btn btn-success" onclick="processPayment(${o.id})"> Cobrar e Imprimir</button>
         </div>
       `).join("")}
     </div>
@@ -1052,7 +1168,7 @@ function processPayment(orderId) {
     <h2>💳 Procesar Pago <button class="close-modal" onclick="closeModal()">✕</button></h2>
     <div class="bg-light p-2 mb-2" style="border-radius: 8px;">
       <div style="font-size: 18px; margin-bottom: 8px;"><strong>Pedido #${order.number}</strong></div>
-      <div>Mesa ${order.tableNumber || 'N/A'}</div>
+      <div>Tipo: ${order.type === 'local' ? '🪑 Local' : order.type === 'pickup' ? ' Recoger' : '🛵 Domicilio'}</div>
       <div>Cliente: ${order.customerName || 'Sin nombre'}</div>
     </div>
     <div class="cashier-items mb-2">
@@ -1077,9 +1193,7 @@ function processPayment(orderId) {
       <input type="number" id="paymentAmount" step="0.01" value="${order.total.toFixed(2)}">
     </div>
     <div id="changeAmount" style="text-align: center; font-size: 18px; margin-bottom: 16px; color: #27ae60; font-weight: bold;"></div>
-    <button class="btn btn-success" onclick="confirmPayment(${order.id})">
-      ✅ Confirmar Pago e Imprimir
-    </button>
+    <button class="btn btn-success" onclick="confirmPayment(${order.id})">✅ Confirmar Pago e Imprimir</button>
   `;
   
   window.currentPaymentOrder = order;
@@ -1090,6 +1204,7 @@ function processPayment(orderId) {
     const changeDiv = document.getElementById("changeAmount");
     if (change > 0) {
       changeDiv.textContent = `Cambio: $${change.toFixed(2)}`;
+      changeDiv.style.color = "#27ae60";
     } else if (change < 0) {
       changeDiv.textContent = `Falta: $${Math.abs(change).toFixed(2)}`;
       changeDiv.style.color = "#e74c3c";
@@ -1108,7 +1223,7 @@ function confirmPayment(orderId) {
   const method = document.getElementById("paymentMethod").value;
   
   if (amount < order.total) {
-    showToast("❌ El monto es insuficiente", "error");
+    showToast(" El monto es insuficiente", "error");
     return;
   }
   
@@ -1126,9 +1241,7 @@ function confirmPayment(orderId) {
   saveData();
   closeModal();
   renderCashierView(document.getElementById("contentArea"));
-  
   printReceipt(order);
-  
   showToast("✅ Pago procesado correctamente");
 }
 
@@ -1142,7 +1255,7 @@ function printReceipt(order) {
       <div style="margin-bottom: 16px;">
         <div>Pedido: #${order.number}</div>
         <div>Fecha: ${new Date(order.paidAt).toLocaleString('es')}</div>
-        <div>Mesa: ${order.tableNumber || 'N/A'}</div>
+        <div>Tipo: ${order.type === 'local' ? 'Local' : order.type === 'pickup' ? 'Recoger' : 'Domicilio'}</div>
         <div>Cliente: ${order.customerName || 'Sin nombre'}</div>
       </div>
       <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 10px 0; margin: 10px 0;">
@@ -1171,18 +1284,10 @@ function printReceipt(order) {
   const printWindow = window.open("", "_blank");
   printWindow.document.write(`
     <html>
-      <head>
-        <title>Ticket #${order.number}</title>
-        <style>
-          @media print {
-            body { margin: 0; }
-            .no-print { display: none; }
-          }
-        </style>
-      </head>
+      <head><title>Ticket #${order.number}</title></head>
       <body>
         ${receipt}
-        <div class="no-print" style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center; margin-top: 20px;">
           <button onclick="window.print()" style="padding: 10px 20px; margin: 5px;">🖨️ Imprimir</button>
           <button onclick="window.close()" style="padding: 10px 20px; margin: 5px;">❌ Cerrar</button>
         </div>
@@ -1192,14 +1297,14 @@ function printReceipt(order) {
   printWindow.document.close();
 }
 
-// VISTA ADMIN
+// ===== VISTA ADMIN =====
 function renderAdminView(container) {
   const today = new Date().toDateString();
   const todayOrders = orders.filter(o => new Date(o.createdAt).toDateString() === today);
   const paidOrders = todayOrders.filter(o => o.status === 'paid');
   const totalSales = paidOrders.reduce((sum, o) => sum + o.total, 0);
   const totalOrders = todayOrders.length;
-  const pendingOrders = orders.filter(o => o.status === 'pending' || o.status === 'ready').length;
+  const pendingOrders = orders.filter(o => !['paid', 'cancelled'].includes(o.status)).length;
   
   const productSales = {};
   paidOrders.forEach(order => {
@@ -1207,43 +1312,25 @@ function renderAdminView(container) {
       productSales[item.name] = (productSales[item.name] || 0) + item.qty;
     });
   });
-  
-  const topProducts = Object.entries(productSales)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+  const topProducts = Object.entries(productSales).sort((a, b) => b[1] - a[1]).slice(0, 5);
   
   container.innerHTML = `
-    <h2 class="mb-2">📊 Panel de Administración</h2>
-    
+    <h2 class="mb-2"> Panel de Administración</h2>
     <div class="admin-stats">
-      <div class="stat-card">
-        <div class="value">$${totalSales.toFixed(2)}</div>
-        <div class="label">Ventas de Hoy</div>
-      </div>
-      <div class="stat-card">
-        <div class="value">${totalOrders}</div>
-        <div class="label">Total Pedidos</div>
-      </div>
-      <div class="stat-card">
-        <div class="value">${paidOrders.length}</div>
-        <div class="label">Pedidos Cobrados</div>
-      </div>
-      <div class="stat-card">
-        <div class="value">${pendingOrders}</div>
-        <div class="label">Pendientes</div>
-      </div>
+      <div class="stat-card"><div class="value">$${totalSales.toFixed(2)}</div><div class="label">Ventas de Hoy</div></div>
+      <div class="stat-card"><div class="value">${totalOrders}</div><div class="label">Total Pedidos</div></div>
+      <div class="stat-card"><div class="value">${paidOrders.length}</div><div class="label">Cobrados</div></div>
+      <div class="stat-card"><div class="value">${pendingOrders}</div><div class="label">Pendientes</div></div>
     </div>
     
     <div class="reports-section">
-      <h3>🏆 Productos Más Vendidos (Hoy)</h3>
+      <h3> Productos Más Vendidos (Hoy)</h3>
       ${topProducts.length === 0 ? '<p>No hay ventas registradas hoy</p>' : `
         <table style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="background: #f0f0f0;">
-              <th style="padding: 10px; text-align: left;">Producto</th>
-              <th style="padding: 10px; text-align: right;">Cantidad</th>
-            </tr>
-          </thead>
+          <thead><tr style="background: #f0f0f0;">
+            <th style="padding: 10px; text-align: left;">Producto</th>
+            <th style="padding: 10px; text-align: right;">Cantidad</th>
+          </tr></thead>
           <tbody>
             ${topProducts.map(([name, qty], idx) => `
               <tr style="border-bottom: 1px solid #eee;">
@@ -1257,7 +1344,7 @@ function renderAdminView(container) {
     </div>
     
     <div class="reports-section">
-      <h3>⚙️ Configuración</h3>
+      <h3>️ Configuración</h3>
       <div class="form-group">
         <label>Nombre del negocio:</label>
         <input type="text" id="adminBusinessName" value="${config.businessName}">
@@ -1272,61 +1359,32 @@ function renderAdminView(container) {
     <div class="reports-section">
       <h3>📦 Gestión de Productos</h3>
       <button class="btn btn-success mb-2" onclick="openProductModal()">➕ Agregar Producto</button>
-      <div id="adminProductList">
-        ${products.map(p => `
-          <div class="order-item">
-            <div class="order-item-info">
-              <div class="order-item-name">${p.name}</div>
-              <div style="font-size: 13px; color: #666;">${p.desc}</div>
-              <div style="color: #d35400; font-weight: bold;">$${parseFloat(p.price).toFixed(2)}</div>
-            </div>
-            <button class="btn-danger" onclick="deleteProduct(${p.id})" style="width: auto; padding: 8px 12px;">🗑️</button>
+      ${products.map(p => `
+        <div class="order-item">
+          <div class="order-item-info">
+            <div class="order-item-name">${p.name}</div>
+            <div style="font-size: 13px; color: #666;">${p.desc}</div>
+            <div style="color: #d35400; font-weight: bold;">$${parseFloat(p.price).toFixed(2)}</div>
           </div>
-        `).join("")}
-      </div>
+          <button class="btn-danger" onclick="deleteProduct(${p.id})" style="width: auto; padding: 8px 12px;">🗑️</button>
+        </div>
+      `).join("")}
     </div>
     
     <div class="reports-section">
-      <h3>🪑 Gestión de Mesas</h3>
+      <h3> Gestión de Mesas</h3>
       <button class="btn btn-success mb-2" onclick="addTable()">➕ Agregar Mesa</button>
-      <div>
-        ${tables.map(t => `
-          <div class="order-item">
-            <div class="order-item-info">
-              <div class="order-item-name">Mesa ${t.number}</div>
-              <div style="font-size: 13px; color: ${t.status === 'available' ? '#27ae60' : '#e74c3c'};">
-                ${t.status === 'available' ? 'Disponible' : 'Ocupada'}
-              </div>
+      ${tables.map(t => `
+        <div class="order-item">
+          <div class="order-item-info">
+            <div class="order-item-name">Mesa ${t.number}</div>
+            <div style="font-size: 13px; color: ${t.status === 'available' ? '#27ae60' : '#e74c3c'};">
+              ${t.status === 'available' ? 'Disponible' : 'Ocupada'}
             </div>
-            <button class="btn-danger" onclick="deleteTable(${t.id})" style="width: auto; padding: 8px 12px;">🗑️</button>
           </div>
-        `).join("")}
-      </div>
-    </div>
-    
-    <div class="reports-section">
-      <h3>🔐 Usuarios del Sistema</h3>
-      <table style="width: 100%; border-collapse: collapse;">
-        <thead>
-          <tr style="background: #f0f0f0;">
-            <th style="padding: 10px; text-align: left;">Usuario</th>
-            <th style="padding: 10px; text-align: left;">Rol</th>
-            <th style="padding: 10px; text-align: left;">Contraseña</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${Object.entries(USERS).map(([user, data]) => `
-            <tr style="border-bottom: 1px solid #eee;">
-              <td style="padding: 10px;">${data.name}</td>
-              <td style="padding: 10px;">${getRoleName(data.role)}</td>
-              <td style="padding: 10px; font-family: monospace;">${data.pass}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-      <p style="font-size: 12px; color: #666; margin-top: 10px;">
-        💡 Para cambiar contraseñas, edite directamente en el código
-      </p>
+          <button class="btn-danger" onclick="deleteTable(${t.id})" style="width: auto; padding: 8px 12px;">🗑️</button>
+        </div>
+      `).join("")}
     </div>
   `;
 }
@@ -1342,28 +1400,14 @@ function saveAdminConfig() {
 function openProductModal() {
   const modal = document.getElementById("modalOverlay");
   const content = document.getElementById("modalContent");
-  
   content.innerHTML = `
     <h2>➕ Agregar Producto <button class="close-modal" onclick="closeModal()">✕</button></h2>
-    <div class="form-group">
-      <label>Nombre:</label>
-      <input type="text" id="newProdName">
-    </div>
-    <div class="form-group">
-      <label>Descripción:</label>
-      <textarea id="newProdDesc" rows="2"></textarea>
-    </div>
-    <div class="form-group">
-      <label>Precio:</label>
-      <input type="number" id="newProdPrice" step="0.01">
-    </div>
-    <div class="form-group">
-      <label>URL de imagen (opcional):</label>
-      <input type="text" id="newProdImg" placeholder="https://...">
-    </div>
+    <div class="form-group"><label>Nombre:</label><input type="text" id="newProdName"></div>
+    <div class="form-group"><label>Descripción:</label><textarea id="newProdDesc" rows="2"></textarea></div>
+    <div class="form-group"><label>Precio:</label><input type="number" id="newProdPrice" step="0.01"></div>
+    <div class="form-group"><label>URL de imagen (opcional):</label><input type="text" id="newProdImg" placeholder="https://..."></div>
     <button class="btn btn-success" onclick="saveNewProduct()">💾 Guardar</button>
   `;
-  
   modal.classList.add("active");
 }
 
@@ -1372,20 +1416,8 @@ function saveNewProduct() {
   const desc = document.getElementById("newProdDesc").value.trim();
   const price = parseFloat(document.getElementById("newProdPrice").value);
   const img = document.getElementById("newProdImg").value.trim() || "https://via.placeholder.com/300x200?text=Sin+Imagen";
-  
-  if (!name || isNaN(price)) {
-    showToast("❌ Nombre y precio son obligatorios", "error");
-    return;
-  }
-  
-  products.push({
-    id: Date.now(),
-    name,
-    desc,
-    price,
-    img
-  });
-  
+  if (!name || isNaN(price)) { showToast("❌ Nombre y precio son obligatorios", "error"); return; }
+  products.push({ id: Date.now(), name, desc, price, img });
   saveData();
   closeModal();
   renderAdminView(document.getElementById("contentArea"));
@@ -1406,11 +1438,7 @@ function deleteProduct(id) {
 function addTable() {
   const num = prompt("Número de mesa:");
   if (num) {
-    tables.push({
-      id: Date.now(),
-      number: parseInt(num),
-      status: 'available'
-    });
+    tables.push({ id: Date.now(), number: parseInt(num), status: 'available' });
     saveData();
     renderAdminView(document.getElementById("contentArea"));
     showToast("✅ Mesa agregada");
@@ -1419,10 +1447,7 @@ function addTable() {
 
 function deleteTable(id) {
   const table = tables.find(t => t.id === id);
-  if (table.status === 'occupied') {
-    showToast("❌ No se puede eliminar una mesa ocupada", "error");
-    return;
-  }
+  if (table.status === 'occupied') { showToast("❌ No se puede eliminar una mesa ocupada", "error"); return; }
   if (confirm(`¿Eliminar Mesa ${table.number}?`)) {
     tables = tables.filter(t => t.id !== id);
     saveData();
@@ -1431,7 +1456,6 @@ function deleteTable(id) {
   }
 }
 
-// UTILIDADES
 function closeModal() {
   document.getElementById("modalOverlay").classList.remove("active");
 }
@@ -1460,13 +1484,9 @@ setInterval(() => {
   if (currentUser) {
     const currentView = document.querySelector('.nav-tab.active');
     if (currentView) {
-      if (currentView.textContent.includes('Cocina')) {
-        renderKitchenView(document.getElementById("contentArea"));
-      } else if (currentView.textContent.includes('Caja')) {
-        renderCashierView(document.getElementById("contentArea"));
-      } else if (currentView.textContent.includes('Mesas')) {
-        renderTablesView(document.getElementById("contentArea"));
-      }
+      if (currentView.textContent.includes('Cocina')) renderKitchenView(document.getElementById("contentArea"));
+      else if (currentView.textContent.includes('Caja')) renderCashierView(document.getElementById("contentArea"));
+      else if (currentView.textContent.includes('Mesas')) renderTablesView(document.getElementById("contentArea"));
     }
   }
 }, 10000);
