@@ -9,9 +9,18 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
   body { background: #f5f5f5; padding: 16px; }
   
+  /* HEADER PÚBLICO */
+  .public-header { text-align: center; margin-bottom: 24px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .public-header h1 { color: #d35400; font-size: 32px; margin-bottom: 8px; }
+  .public-header p { color: #666; font-size: 14px; }
+  
+  /* BOTÓN ACCESO PERSONAL (discreto) */
+  .staff-access { position: fixed; bottom: 16px; left: 16px; background: #2c3e50; color: white; border: none; padding: 10px 16px; border-radius: 50px; cursor: pointer; font-size: 12px; opacity: 0.6; transition: opacity 0.2s; z-index: 100; }
+  .staff-access:hover { opacity: 1; }
+  
   /* LOGIN */
   .login-container { max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  .login-container h1 { text-align: center; color: #d35400; margin-bottom: 24px; }
+  .login-container h1 { text-align: center; color: #2c3e50; margin-bottom: 24px; }
   .form-group { margin-bottom: 16px; }
   .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #2c3e50; }
   .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
@@ -23,7 +32,7 @@
   .btn-warning { background: #f39c12; }
   .btn-info { background: #3498db; }
   
-  /* HEADER */
+  /* HEADER APP */
   .header { background: #2c3e50; color: white; padding: 16px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   .header h1 { font-size: 24px; }
   .header-info { display: flex; gap: 16px; align-items: center; font-size: 14px; }
@@ -77,7 +86,6 @@
   .order-item-qty { display: flex; align-items: center; gap: 8px; margin: 0 12px; }
   .order-item-qty button { background: #d35400; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
   .qty-badge { background: #2c3e50; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; min-width: 30px; text-align: center; }
-  .remove-btn { background: #e74c3c; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; }
   
   /* KITCHEN ORDERS */
   .kitchen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; }
@@ -128,21 +136,31 @@
   /* TOAST */
   .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #27ae60; color: white; padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 300; animation: fadeIn 0.3s; }
   @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -20px); } to { opacity: 1; transform: translate(-50%, 0); } }
-  
-  /* PRINT */
-  @media print {
-    .no-print { display: none !important; }
-    .print-only { display: block !important; }
-    body { background: white; }
-  }
-  .print-only { display: none; }
 </style>
 </head>
 <body>
 
+<!-- VISTA PÚBLICA (MENÚ DIGITAL) -->
+<div id="publicView">
+  <div class="public-header">
+    <h1 id="businessNameDisplay">🍽️ Mi Restaurante</h1>
+    <p>Bienvenido - Escanea y disfruta</p>
+  </div>
+  
+  <div class="menu-grid" id="publicMenuGrid"></div>
+  
+  <button class="order-fab" onclick="customerOrderFlow()">
+    🛒 Hacer Pedido
+  </button>
+  
+  <button class="staff-access" onclick="showLogin()">
+     Acceso Personal
+  </button>
+</div>
+
 <!-- LOGIN SCREEN -->
-<div id="loginScreen" class="login-container">
-  <h1>🍽️ Restaurante</h1>
+<div id="loginScreen" class="login-container hidden">
+  <h1>🔐 Acceso Personal</h1>
   <div class="form-group">
     <label>Usuario:</label>
     <select id="loginUser">
@@ -159,6 +177,7 @@
     <input type="password" id="loginPass" placeholder="Ingrese contraseña">
   </div>
   <button class="btn" onclick="login()">Ingresar</button>
+  <button class="btn btn-secondary mt-2" onclick="backToPublic()">← Volver al Menú</button>
   <p style="text-align: center; margin-top: 16px; font-size: 13px; color: #666;">
     Contraseña por defecto: <strong>1234</strong>
   </p>
@@ -175,7 +194,7 @@
     </div>
   </div>
   
-  <div class="nav-tabs no-print" id="navTabs"></div>
+  <div class="nav-tabs" id="navTabs"></div>
   
   <div id="contentArea"></div>
 </div>
@@ -225,6 +244,36 @@ function saveData() {
   localStorage.setItem("config", JSON.stringify(config));
 }
 
+// INICIALIZAR VISTA PÚBLICA
+function initPublicView() {
+  document.getElementById("businessNameDisplay").textContent = `🍽️ ${config.businessName}`;
+  renderPublicMenu();
+}
+
+function renderPublicMenu() {
+  const grid = document.getElementById("publicMenuGrid");
+  grid.innerHTML = products.map(p => `
+    <div class="card">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Sin+Imagen'">
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price">$${parseFloat(p.price).toFixed(2)}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function showLogin() {
+  document.getElementById("publicView").classList.add("hidden");
+  document.getElementById("loginScreen").classList.remove("hidden");
+}
+
+function backToPublic() {
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("publicView").classList.remove("hidden");
+}
+
 // LOGIN
 function login() {
   const user = document.getElementById("loginUser").value;
@@ -253,7 +302,7 @@ function login() {
 function logout() {
   currentUser = null;
   document.getElementById("mainApp").classList.add("hidden");
-  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("publicView").classList.remove("hidden");
   document.getElementById("loginUser").value = "";
   document.getElementById("loginPass").value = "";
 }
@@ -261,11 +310,6 @@ function logout() {
 function getRoleName(role) {
   const roles = { waiter: 'Mesero', kitchen: 'Cocina', cashier: 'Cajero', admin: 'Admin' };
   return roles[role] || role;
-}
-
-function getRoleColor(role) {
-  const colors = { waiter: '#3498db', kitchen: '#e67e22', cashier: '#27ae60', admin: '#9b59b6' };
-  return colors[role] || '#95a5a6';
 }
 
 // INICIALIZAR APP
@@ -281,7 +325,7 @@ function renderNavTabs() {
   let tabHTML = '';
   
   if (role === 'waiter' || role === 'admin') {
-    tabHTML += `<button class="nav-tab ${role === 'waiter' ? 'active' : ''}" onclick="showView('menu')"> Menú Digital</button>`;
+    tabHTML += `<button class="nav-tab ${role === 'waiter' ? 'active' : ''}" onclick="showView('menu')">🍽️ Menú</button>`;
     tabHTML += `<button class="nav-tab" onclick="showView('tables')">🪑 Mesas</button>`;
   }
   
@@ -290,7 +334,7 @@ function renderNavTabs() {
   }
   
   if (role === 'cashier' || role === 'admin') {
-    tabHTML += `<button class="nav-tab ${role === 'cashier' ? 'active' : ''}" onclick="showView('cashier')"> Caja</button>`;
+    tabHTML += `<button class="nav-tab ${role === 'cashier' ? 'active' : ''}" onclick="showView('cashier')">💰 Caja</button>`;
   }
   
   if (role === 'admin') {
@@ -333,14 +377,12 @@ function renderContent(view) {
   }
 }
 
-// VISTA MENÚ (CLIENTE/MESERO)
+// VISTA MENÚ (MESERO)
 function renderMenuView(container) {
-  const isCustomer = !currentUser || currentUser.role === 'waiter';
-  
   container.innerHTML = `
     <div class="text-center mb-2">
       <h2>🍽️ ${config.businessName}</h2>
-      <p style="color: #666;">Nuestro Menú</p>
+      <p style="color: #666;">Menú Digital</p>
     </div>
     <div class="menu-grid">
       ${products.map(p => `
@@ -354,18 +396,129 @@ function renderMenuView(container) {
         </div>
       `).join("")}
     </div>
-    ${currentUser ? `
-      <button class="order-fab" onclick="openOrderModal()">
-        📝 Tomar Pedido
-      </button>
-    ` : `
-      <button class="order-fab" onclick="customerOrderFlow()">
-        🛒 Hacer Pedido
-      </button>
-    `}
+    <button class="order-fab" onclick="openOrderModal()">
+      📝 Tomar Pedido
+    </button>
   `;
 }
 
+function openOrderModal() {
+  const modal = document.getElementById("modalOverlay");
+  const content = document.getElementById("modalContent");
+  
+  content.innerHTML = `
+    <h2>📝 Tomar Pedido <button class="close-modal" onclick="closeModal()">✕</button></h2>
+    <div class="form-group">
+      <label>Seleccionar mesa:</label>
+      <select id="orderTable">
+        <option value="">Seleccione...</option>
+        ${tables.filter(t => t.status === 'available').map(t => `
+          <option value="${t.id}">Mesa ${t.number}</option>
+        `).join("")}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Nombre del cliente:</label>
+      <input type="text" id="orderCustomerName" placeholder="Juan Pérez">
+    </div>
+    <div class="form-group">
+      <label>Agregar productos:</label>
+      <div id="orderProductList">
+        ${products.map(p => `
+          <div class="order-item">
+            <div class="order-item-info">
+              <div class="order-item-name">${p.name}</div>
+              <div style="color: #d35400; font-weight: bold;">$${parseFloat(p.price).toFixed(2)}</div>
+            </div>
+            <div class="order-item-qty">
+              <button onclick="updateOrderQty(${p.id}, -1)">-</button>
+              <span class="qty-badge" id="order-qty-${p.id}">0</span>
+              <button onclick="updateOrderQty(${p.id}, 1)">+</button>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Notas:</label>
+      <textarea id="orderNotes" rows="2"></textarea>
+    </div>
+    <button class="btn btn-success" onclick="saveOrder()">💾 Guardar Pedido</button>
+  `;
+  
+  window.orderCart = {};
+  modal.classList.add("active");
+}
+
+function updateOrderQty(productId, delta) {
+  window.orderCart[productId] = (window.orderCart[productId] || 0) + delta;
+  if (window.orderCart[productId] < 0) window.orderCart[productId] = 0;
+  document.getElementById(`order-qty-${productId}`).textContent = window.orderCart[productId];
+}
+
+function saveOrder() {
+  const tableId = document.getElementById("orderTable").value;
+  const customerName = document.getElementById("orderCustomerName").value.trim();
+  const notes = document.getElementById("orderNotes").value.trim();
+  
+  if (!tableId) {
+    showToast("❌ Seleccione una mesa", "error");
+    return;
+  }
+  if (!customerName) {
+    showToast("❌ Ingrese nombre del cliente", "error");
+    return;
+  }
+  
+  const items = [];
+  let total = 0;
+  
+  for (const [productId, qty] of Object.entries(window.orderCart)) {
+    if (qty > 0) {
+      const product = products.find(p => p.id == productId);
+      if (product) {
+        items.push({ productId: product.id, name: product.name, price: product.price, qty });
+        total += product.price * qty;
+      }
+    }
+  }
+  
+  if (items.length === 0) {
+    showToast("❌ Agregue al menos un producto", "error");
+    return;
+  }
+  
+  const table = tables.find(t => t.id == tableId);
+  table.status = 'occupied';
+  
+  const order = {
+    id: Date.now(),
+    number: String(orderCounter++).padStart(3, '0'),
+    type: 'table',
+    tableId: parseInt(tableId),
+    tableNumber: table.number,
+    customerName,
+    items,
+    total,
+    notes,
+    status: 'pending',
+    createdAt: new Date().toISOString(),
+    createdBy: currentUser.id
+  };
+  
+  orders.push(order);
+  saveData();
+  closeModal();
+  showToast("✅ Pedido guardado y enviado a cocina");
+  
+  // Notificar cocina
+  if (window.BroadcastChannel) {
+    const bc = new BroadcastChannel('kitchen_orders');
+    bc.postMessage({ type: 'new_order', order });
+  }
+}
+
+// PEDIDO DEL CLIENTE (PÚBLICO)
 function customerOrderFlow() {
   const modal = document.getElementById("modalOverlay");
   const content = document.getElementById("modalContent");
@@ -387,7 +540,7 @@ function customerOrderFlow() {
       </div>
       <div id="localFields" class="hidden">
         <div class="form-group">
-          <label>Nombre de la mesa o ubicación:</label>
+          <label>¿Dónde estás ubicado?</label>
           <input type="text" id="customerTable" placeholder="Mesa cerca de la ventana">
         </div>
       </div>
@@ -408,7 +561,7 @@ function customerOrderFlow() {
               </div>
               <div class="order-item-qty">
                 <button onclick="updateCustomerQty(${p.id}, -1)">-</button>
-                <span class="qty-badge" id="qty-${p.id}">0</span>
+                <span class="qty-badge" id="cust-qty-${p.id}">0</span>
                 <button onclick="updateCustomerQty(${p.id}, 1)">+</button>
               </div>
             </div>
@@ -425,8 +578,8 @@ function customerOrderFlow() {
     </div>
   `;
   
-  modal.classList.add("active");
   window.customerCart = {};
+  modal.classList.add("active");
 }
 
 function toggleOrderFields() {
@@ -450,7 +603,7 @@ function toggleOrderFields() {
 function updateCustomerQty(productId, delta) {
   window.customerCart[productId] = (window.customerCart[productId] || 0) + delta;
   if (window.customerCart[productId] < 0) window.customerCart[productId] = 0;
-  document.getElementById(`qty-${productId}`).textContent = window.customerCart[productId];
+  document.getElementById(`cust-qty-${productId}`).textContent = window.customerCart[productId];
 }
 
 function submitCustomerOrder() {
@@ -506,7 +659,6 @@ function submitCustomerOrder() {
     closeModal();
     showToast("✅ Pedido enviado a cocina");
     
-    // Notificar cocina
     if (window.BroadcastChannel) {
       const bc = new BroadcastChannel('kitchen_orders');
       bc.postMessage({ type: 'new_order', order });
@@ -518,9 +670,8 @@ function submitCustomerOrder() {
       return;
     }
     
-    // Enviar por WhatsApp
     let message = `🍽️ *NUEVO PEDIDO - ${config.businessName}*\n\n`;
-    message += ` *Cliente:* ${name}\n`;
+    message += `👤 *Cliente:* ${name}\n`;
     message += `📍 *Dirección:* ${address}\n\n`;
     message += `📋 *Productos:*\n`;
     items.forEach(item => {
@@ -565,7 +716,6 @@ function openTable(tableId) {
   const content = document.getElementById("modalContent");
   
   if (table.status === 'available' || !existingOrder) {
-    // Nueva orden o mesa disponible
     content.innerHTML = `
       <h2>🪑 Mesa ${table.number} <button class="close-modal" onclick="closeModal()">✕</button></h2>
       <div class="form-group">
@@ -601,7 +751,6 @@ function openTable(tableId) {
     window.tableCart = {};
     window.currentTableId = tableId;
   } else {
-    // Mesa ocupada - mostrar orden existente
     content.innerHTML = `
       <h2>🪑 Mesa ${table.number} <button class="close-modal" onclick="closeModal()">✕</button></h2>
       <div class="bg-light p-2 mb-2" style="border-radius: 8px;">
@@ -667,7 +816,7 @@ function saveTableOrder(tableId) {
   const notes = document.getElementById("tableNotes").value.trim();
   
   if (!customerName) {
-    showToast(" Ingrese nombre del cliente", "error");
+    showToast("❌ Ingrese nombre del cliente", "error");
     return;
   }
   
@@ -713,7 +862,6 @@ function saveTableOrder(tableId) {
   renderTablesView(document.getElementById("contentArea"));
   showToast("✅ Pedido guardado");
   
-  // Notificar cocina
   if (window.BroadcastChannel) {
     const bc = new BroadcastChannel('kitchen_orders');
     bc.postMessage({ type: 'new_order', order });
@@ -721,8 +869,7 @@ function saveTableOrder(tableId) {
 }
 
 function addToExistingOrder(orderId, productId, delta) {
-  // Implementación simplificada - en producción sería más complejo
-  showToast("️ Función en desarrollo", "info");
+  showToast("⚠️ Función en desarrollo", "info");
 }
 
 function markTableReady(orderId) {
@@ -754,7 +901,7 @@ function renderKitchenView(container) {
   const readyOrders = orders.filter(o => o.status === 'ready').sort((a, b) => new Date(b.readyAt) - new Date(a.readyAt));
   
   container.innerHTML = `
-    <h2 class="mb-2">👨‍🍳 Panel de Cocina</h2>
+    <h2 class="mb-2">‍🍳 Panel de Cocina</h2>
     <div class="kitchen-grid">
       ${pendingOrders.length === 0 && readyOrders.length === 0 ? `
         <div class="text-center p-2" style="grid-column: 1/-1; background: white; border-radius: 12px;">
@@ -780,7 +927,7 @@ function renderKitchenView(container) {
               <div style="font-weight: bold; color: #d35400;">$${o.total.toFixed(2)}</div>
             </div>
             <div class="kitchen-meta">
-              ${o.type === 'table' ? `<span>🪑 Mesa ${o.tableNumber}</span>` : ''}
+              ${o.type === 'table' ? `<span> Mesa ${o.tableNumber}</span>` : ''}
               ${o.customerName ? `<span> ${o.customerName}</span>` : ''}
               ${o.type === 'local' ? '<span>📱 Cliente directo</span>' : ''}
             </div>
@@ -902,7 +1049,7 @@ function processPayment(orderId) {
   const content = document.getElementById("modalContent");
   
   content.innerHTML = `
-    <h2>💳 Procesar Pago <button class="close-modal" onclick="closeModal()"></button></h2>
+    <h2>💳 Procesar Pago <button class="close-modal" onclick="closeModal()">✕</button></h2>
     <div class="bg-light p-2 mb-2" style="border-radius: 8px;">
       <div style="font-size: 18px; margin-bottom: 8px;"><strong>Pedido #${order.number}</strong></div>
       <div>Mesa ${order.tableNumber || 'N/A'}</div>
@@ -937,7 +1084,6 @@ function processPayment(orderId) {
   
   window.currentPaymentOrder = order;
   
-  // Calcular cambio
   document.getElementById("paymentAmount").addEventListener("input", function() {
     const amount = parseFloat(this.value) || 0;
     const change = amount - order.total;
@@ -972,7 +1118,6 @@ function confirmPayment(orderId) {
   order.paymentAmount = amount;
   order.change = amount - order.total;
   
-  // Liberar mesa si es de mesa
   if (order.tableId) {
     const table = tables.find(t => t.id === order.tableId);
     if (table) table.status = 'available';
@@ -982,7 +1127,6 @@ function confirmPayment(orderId) {
   closeModal();
   renderCashierView(document.getElementById("contentArea"));
   
-  // Imprimir ticket
   printReceipt(order);
   
   showToast("✅ Pago procesado correctamente");
@@ -1057,7 +1201,6 @@ function renderAdminView(container) {
   const totalOrders = todayOrders.length;
   const pendingOrders = orders.filter(o => o.status === 'pending' || o.status === 'ready').length;
   
-  // Productos más vendidos
   const productSales = {};
   paidOrders.forEach(order => {
     order.items.forEach(item => {
@@ -1070,7 +1213,7 @@ function renderAdminView(container) {
     .slice(0, 5);
   
   container.innerHTML = `
-    <h2 class="mb-2"> Panel de Administración</h2>
+    <h2 class="mb-2">📊 Panel de Administración</h2>
     
     <div class="admin-stats">
       <div class="stat-card">
@@ -1114,7 +1257,7 @@ function renderAdminView(container) {
     </div>
     
     <div class="reports-section">
-      <h3>️ Configuración</h3>
+      <h3>⚙️ Configuración</h3>
       <div class="form-group">
         <label>Nombre del negocio:</label>
         <input type="text" id="adminBusinessName" value="${config.businessName}">
@@ -1123,7 +1266,7 @@ function renderAdminView(container) {
         <label>WhatsApp (con código de país):</label>
         <input type="text" id="adminWhatsapp" value="${config.whatsapp}" placeholder="521234567890">
       </div>
-      <button class="btn" onclick="saveAdminConfig()"> Guardar Configuración</button>
+      <button class="btn" onclick="saveAdminConfig()">💾 Guardar Configuración</button>
     </div>
     
     <div class="reports-section">
@@ -1144,8 +1287,8 @@ function renderAdminView(container) {
     </div>
     
     <div class="reports-section">
-      <h3> Gestión de Mesas</h3>
-      <button class="btn btn-success mb-2" onclick="addTable()"> Agregar Mesa</button>
+      <h3>🪑 Gestión de Mesas</h3>
+      <button class="btn btn-success mb-2" onclick="addTable()">➕ Agregar Mesa</button>
       <div>
         ${tables.map(t => `
           <div class="order-item">
@@ -1192,6 +1335,7 @@ function saveAdminConfig() {
   config.businessName = document.getElementById("adminBusinessName").value.trim();
   config.whatsapp = document.getElementById("adminWhatsapp").value.trim();
   localStorage.setItem("config", JSON.stringify(config));
+  document.getElementById("businessNameDisplay").textContent = `🍽️ ${config.businessName}`;
   showToast("✅ Configuración guardada");
 }
 
@@ -1200,7 +1344,7 @@ function openProductModal() {
   const content = document.getElementById("modalContent");
   
   content.innerHTML = `
-    <h2> Agregar Producto <button class="close-modal" onclick="closeModal()">✕</button></h2>
+    <h2>➕ Agregar Producto <button class="close-modal" onclick="closeModal()">✕</button></h2>
     <div class="form-group">
       <label>Nombre:</label>
       <input type="text" id="newProdName">
@@ -1245,6 +1389,7 @@ function saveNewProduct() {
   saveData();
   closeModal();
   renderAdminView(document.getElementById("contentArea"));
+  renderPublicMenu();
   showToast("✅ Producto agregado");
 }
 
@@ -1253,6 +1398,7 @@ function deleteProduct(id) {
     products = products.filter(p => p.id !== id);
     saveData();
     renderAdminView(document.getElementById("contentArea"));
+    renderPublicMenu();
     showToast("✅ Producto eliminado");
   }
 }
@@ -1325,8 +1471,8 @@ setInterval(() => {
   }
 }, 10000);
 
-// Inicializar fecha
-document.getElementById("currentDate").textContent = new Date().toLocaleString('es');
+// INICIALIZAR
+initPublicView();
 </script>
 </body>
 </html>
